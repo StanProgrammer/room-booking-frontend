@@ -33,7 +33,7 @@ function App() {
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />
-          <Route path="/" element={token ? <Navigate to='https://room-booking-frontend-r2me.onrender.com/home'/>: <Navigate to="/login" />} />
+          <Route path="/" element={token ? <Navigate to='/home'/>: <Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer/>
