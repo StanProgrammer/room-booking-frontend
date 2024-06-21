@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { toast } from 'react-toastify';
 import '../styles/Login.css'
 function Login() {    
@@ -20,7 +20,7 @@ function Login() {
             }
             else{
             localStorage.setItem('token',result.data.token)
-            navigate('/home')
+            window.location.href = '/home';
             }
         } catch (error) {
             toast.error('Server error');
