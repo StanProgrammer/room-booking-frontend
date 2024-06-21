@@ -1,0 +1,28 @@
+.room-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .active{
+    background-color: aquamarine;
+  }
+  
+  .room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .features-list {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .features-list li {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  

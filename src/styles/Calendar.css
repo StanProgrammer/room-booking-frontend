@@ -1,0 +1,20 @@
+.td-style{
+    cursor: pointer;
+}
+
+.td-disabled{
+    cursor: not-allowed;
+}
+.all-slots-booked {
+    text-decoration: line-through;
+    color: #ccc; /* or any other color for disabled dates */
+    cursor: not-allowed;
+    color: red;
+  }
+
+  .past-dates {
+    color: #ccc; /* or any other color for disabled dates */
+    cursor: not-allowed;
+  }
+  
+  
