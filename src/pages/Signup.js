@@ -21,9 +21,9 @@ function Signup() {
                 toast(result.data.msg)
             }
             else{
-            console.log(result)
+            
             localStorage.setItem('token',result.data.token)
-
+            toast.success("Registration successfull")
             navigate("/home")
             }
         } catch (error) {
