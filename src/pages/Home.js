@@ -8,11 +8,12 @@ import Slots from "../components/Slots";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import moment from 'moment-timezone'; 
+import moment from "moment-timezone";
 function Home() {
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
- 
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [rooms, setRooms] = useState([]);
   const [selected, setSelected] = useState(0);
@@ -29,7 +30,6 @@ function Home() {
     setSelectedSlots([]);
   };
 
-  
   const handleClick = (id) => () => {
     setSelected(id);
     const active = rooms.filter((room) => room._id === id);
@@ -50,14 +50,12 @@ function Home() {
   };
 
   const handleSubmit = async () => {
-    const formattedDate = moment(activeDate).format('YYYY-MM-DD');
+    const formattedDate = moment(activeDate).format("YYYY-MM-DD");
     const data = {
       roomId: selected,
       date: formattedDate,
       slots: selectedSlots,
     };
-
-    
 
     try {
       const response = await axios.post(`${backendUrl}/book`, data, {
@@ -65,7 +63,6 @@ function Home() {
           Authorization: `Bearer ${token}`,
         },
       });
-     
 
       // Update rooms array with the new booking data
       setRooms((prevRooms) => {
@@ -80,7 +77,7 @@ function Home() {
       // Reset selected slots and active date after booking
       setSelectedSlots([]);
       setActiveDate(null);
-      toast.success('Booking has been successfull')
+      toast.success("Booking has been successfull");
     } catch (error) {
       toast.error("Error booking room:");
     }
@@ -97,7 +94,7 @@ function Home() {
       setRooms(response.data);
       setSelected(response.data[0]._id);
       setActiveRoom(response.data[0]);
-      
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -116,16 +113,28 @@ function Home() {
 
   const isBookButtonDisabled = activeDate === 0 || selectedSlots.length === 0;
 
-  const handleLogout = ()=>{
-    localStorage.removeItem('token');
-    navigate('/login')
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  if (loading) {
+    return (
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="container1">
       <div className="header">
         <h1 className="mb-2">Book Rooms</h1>
-        <button type="button" className="btn btn-danger logout-class" onClick={handleLogout}><RiLogoutCircleRLine />Logout
+        <button type="button" className="btn btn-danger logout-class" onClick={handleLogout}>
+          <RiLogoutCircleRLine />
+          Logout
         </button>
 
         <div>
@@ -175,7 +184,6 @@ function Home() {
                         activeDate={activeDate}
                         rooms={rooms}
                         selected={selected}
-
                       />
                     )}
                   </div>
@@ -194,16 +202,15 @@ function Home() {
               </div>
             </div>
           )}
-           {activeRoom && filteredRooms.some(room => room._id === activeRoom._id) && (
-             <Slots
-             selected={selected}
-             selectedSlots={selectedSlots}
-             handleSlotClick={handleSlotClick}
-             bookings={activeRoom?.bookings}
-             activeDate={activeDate}
-           />
-)}
-         
+          {activeRoom && filteredRooms.some((room) => room._id === activeRoom._id) && (
+            <Slots
+              selected={selected}
+              selectedSlots={selectedSlots}
+              handleSlotClick={handleSlotClick}
+              bookings={activeRoom?.bookings}
+              activeDate={activeDate}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -39,17 +39,17 @@ function Login() {
                     <label htmlFor="email">
                         <strong>Email</strong>
                     </label>
-                    <input type="text" 
+                    <input type="email" 
                     placeholder='Enter Email' 
                     autoComplete='off' 
                     name='email' 
                     className='form-control rounded-0' 
                     onChange={(e) => setEmail(e.target.value)}
-
+                    required
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="email">
+                    <label htmlFor="password">
                         <strong>Password</strong>
                     </label>
                     <input type="password" 
@@ -57,7 +57,7 @@ function Login() {
                     name='password' 
                     className='form-control rounded-0' 
                     onChange={(e) => setPassword(e.target.value)}
-
+                    required
                     />
                 </div>
                 <button type="submit" className="btn btn-success w-100 rounded-0">
